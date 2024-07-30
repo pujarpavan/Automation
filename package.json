@@ -1,0 +1,10 @@
+{
+  "name": "testcafe-automation",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "testcafe chrome test/example.test.js"
+  },
+  "devDependencies": {
+    "testcafe": "^1.17.0"
+  }
+}
