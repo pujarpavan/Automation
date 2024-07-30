@@ -1,0 +1,14 @@
+# Use the official Node.js image
+FROM node:14
+
+# Install TestCafe
+RUN npm install -g testcafe
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the test files into the container
+COPY . .
+
+# Run TestCafe tests
+CMD ["testcafe", "chrome:headless", "tests/"]
