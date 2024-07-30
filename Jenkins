@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'your-vm-label' // Replace with your VM label
+        label 'aws-vm-10-134-119-112' // Replace with your VM label
     }
     stages {
         stage('Checkout') {
