@@ -1,9 +1,13 @@
 import { Selector } from 'testcafe';
 
-fixture `My First Test`
-    .page `https://google.com`;
+fixture `Login Test`
+    .page `https://10.134.119.112/login`; // your page URL
 
-test('Check page title', async t => {
-    const title = await t.eval(() => document.title);
-    await t.expect(title).eql('Example Domain');
+test('User can login with valid credentials', async t => {
+    await t
+        .typeText('#username', 'admin') // provided username
+        .typeText('#password', 'admin') // provided password
+        .click('#login-button')
+        .expect(Selector('#login-form').exists).notOk() // assumes the form disappears on successful login
+        .expect(Selector('#welcome-message').innerText).eql('Welcome, admin!'); // replace with expected welcome message
 });
