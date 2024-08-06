@@ -1,12 +1,11 @@
 pipeline {
-    agent {
-        label 'VM' // Replace with your VM label
-    }
+    agent any
+
     stages {
         stage('Checkout') {
             steps {
-                // Checkout your repository
-                git 'https://github.com/pujarpavan/Automation.git'
+                // Checkout the code from the Git repository
+                git 'https://github.com/pujarpavan/Automation' // Replace with your Git repository
             }
         }
         stage('Install Dependencies') {
@@ -15,23 +14,25 @@ pipeline {
                 sh 'npm install'
             }
         }
+        stage('Check Node Version') {
+            steps {
+                // Check the versions of Node.js and npm
+                sh 'node -v'
+                sh 'npm -v'
+            }
+        }
         stage('Run Tests') {
             steps {
                 // Run your TestCafe tests
-                sh 'npx testcafe chrome test/example.test.js'
+                sh 'npx testcafe chrome tests/example.test.js'
             }
         }
     }
+
     post {
         always {
-            // Clean up the workspace
-            cleanWs()
-        }
-        success {
-            echo 'Tests completed successfully.'
-        }
-        failure {
-            echo 'Tests failed.'
+            // Archive test results or screenshots, if any
+            archiveArtifacts artifacts: 'screenshots/**/*', allowEmptyArchive: true
         }
     }
 }
